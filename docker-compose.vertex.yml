@@ -1,0 +1,26 @@
+# Optional override for LOCAL Docker Compose + a local service-account JSON.
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.vertex.yml up --build
+#
+# Put service_account.json in the repo root ONLY for local testing. It is
+# gitignored. Prefer an external absolute path and adapt the volume mount.
+services:
+  api:
+    env_file:
+      - .env
+    environment:
+      AI_MODE: vertex
+      VERTEX_AUTH_MODE: service_account
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/gcp-service-account.json
+    volumes:
+      - ./service_account.json:/run/secrets/gcp-service-account.json:ro
+
+  worker:
+    env_file:
+      - .env
+    environment:
+      AI_MODE: vertex
+      VERTEX_AUTH_MODE: service_account
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/gcp-service-account.json
+    volumes:
+      - ./service_account.json:/run/secrets/gcp-service-account.json:ro

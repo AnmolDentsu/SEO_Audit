@@ -1,0 +1,11 @@
+{
+  "name": "Demo SEO comparison",
+  "client_name": "Example Client",
+  "targets": [
+    {"url": "https://example.com/", "role": "CLIENT", "label": "Client"},
+    {"url": "https://www.iana.org/help/example-domains", "role": "P0", "label": "Competitor P0"}
+  ],
+  "keywords": [
+    {"keyword": "example domain", "priority": "P0", "target_min": 0.1, "target_max": 2.0}
+  ]
+}

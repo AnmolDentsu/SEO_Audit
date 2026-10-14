@@ -1,0 +1,61 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: seo_platform
+      POSTGRES_USER: seo
+      POSTGRES_PASSWORD: seo
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U seo -d seo_platform"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - seo_pg_data:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://seo:seo@db:5432/seo_platform
+      JOB_EXECUTION_MODE: worker
+      FRONTEND_ORIGINS: http://localhost:5173
+      AI_MODE: "off"
+      BLOCK_PRIVATE_NETWORKS: "true"
+    command: ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/readyz', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    depends_on:
+      db:
+        condition: service_healthy
+
+  worker:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+psycopg://seo:seo@db:5432/seo_platform
+      JOB_EXECUTION_MODE: worker
+      AI_MODE: "off"
+      BLOCK_PRIVATE_NETWORKS: "true"
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      api:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://localhost:8000
+    ports:
+      - "5173:8080"
+    depends_on:
+      - api
+
+volumes:
+  seo_pg_data:

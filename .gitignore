@@ -1,0 +1,129 @@
+.env
+.venv/
+venv/
+backend/.venv/
+backend/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+frontend/node_modules/
+
+dist/
+frontend/dist/
+dist/
+coverage/
+*.sqlite3
+*.db
+playwright-report/
+test-results/
+.DS_Store
+.vscode/
+.idea/
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+# Google credentials - NEVER commit private service-account keys
+service_account*.json
+*-service-account.json
+credentials*.json
+.gcloud/
+# Runtime / generated output
+# ============================================================
+logs/
+*.log
+
+downloads/
+exports/
+outputs/
+
+*.xlsx
+*.xls
+*.csv.tmp
+# ============================================================
+# Secrets / local configuration
+# ============================================================
+.env
+.env.*
+!.env.example
+
+service_account.json
+service_account*.json
+sa.json
+
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ============================================================
+# Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+.venv/
+venv/
+backend/.venv/
+backend/venv/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ============================================================
+# Databases
+# ============================================================
+*.db
+*.sqlite
+*.sqlite3
+
+backend/*.db
+backend/*.sqlite
+backend/*.sqlite3
+
+# ============================================================
+# Frontend
+# ============================================================
+node_modules/
+frontend/node_modules/
+
+dist/
+frontend/dist/
+
+# ============================================================
+# Runtime / generated output
+# ============================================================
+logs/
+*.log
+
+downloads/
+exports/
+outputs/
+
+*.xlsx
+*.xls
+*.csv.tmp
+
+# ============================================================
+# Backups
+# ============================================================
+backup/
+backups/
+*.before_*
+*.bak
+*.save
+
+# ============================================================
+# OS / IDE
+# ============================================================
+.DS_Store
+.vscode/
+.idea/
+# Additional local backup artifacts
+*.db.*
+*.before-*
+*.pre-*

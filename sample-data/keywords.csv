@@ -1,0 +1,5 @@
+keyword,priority,target_min,target_max
+home loan,P0,0.4,1.2
+home loan interest rate,P0,0.2,0.8
+emi calculator,P1,0.1,0.6
+eligibility,NONE,,
