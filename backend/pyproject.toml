@@ -10,10 +10,23 @@ requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.116,<1",
   "uvicorn[standard]>=0.35,<1",
+
+  # Production ASGI process management
+  "gunicorn>=26.2,<27",
+  "uvicorn-worker>=0.4,<1",
+
+  # Okta / OIDC
+  #
+  # Keep Authlib below 1.8 for now because the project already uses httpx 0.28
+  # and Authlib 1.8 introduced an httpx2 migration for its HTTP integration.
+  "authlib>=1.7.2,<1.8",
+  "itsdangerous>=2.2,<3",
+
   "sqlalchemy>=2.0.40,<3",
   "alembic>=1.16,<2",
   "pydantic>=2.11,<3",
   "pydantic-settings>=2.10,<3",
+
   "playwright>=1.53,<2",
   "beautifulsoup4>=4.13,<5",
   "lxml>=5.4,<7",
@@ -21,6 +34,7 @@ dependencies = [
   "tenacity>=9.1,<10",
   "openpyxl>=3.1.5,<4",
   "curl-cffi>=0.16.3,<1",
+
   "google-auth>=2.40,<3",
   "psycopg[binary]>=3.2,<4",
   "python-multipart>=0.0.20,<1",
