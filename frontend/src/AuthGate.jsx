@@ -9,6 +9,12 @@ import {
   startLogin,
 } from './auth.js'
 
+import {
+  LoginBrand,
+} from './Branding.jsx'
+
+import ThemeToggle from './ThemeToggle.jsx'
+
 
 function initials(user) {
   const source =
@@ -20,7 +26,9 @@ function initials(user) {
     .split(/[\s.@_-]+/)
     .filter(Boolean)
     .slice(0, 2)
-    .map(value => value[0]?.toUpperCase())
+    .map(value =>
+      value[0]?.toUpperCase()
+    )
     .join('')
 }
 
@@ -113,19 +121,21 @@ export default function AuthGate({
 
   if (loading) {
     return (
-      <div className="auth-screen">
-        <div className="auth-card compact">
-          <div className="auth-brand-mark">
-            S
+      <div className="auth-screen auth-screen-loading">
+        <ThemeToggle className="auth-theme-toggle" />
+
+        <div className="auth-card auth-card-loading">
+          <LoginBrand />
+
+          <div className="auth-loading-copy">
+            <strong>
+              Loading SiteMind
+            </strong>
+
+            <span>
+              Verifying your secure session…
+            </span>
           </div>
-
-          <h1>
-            SiteMind
-          </h1>
-
-          <p>
-            Verifying your secure session…
-          </p>
 
           <div className="auth-loader" />
         </div>
@@ -137,30 +147,33 @@ export default function AuthGate({
   if (!authState.authenticated) {
     return (
       <div className="auth-screen">
-        <div className="auth-card">
-          <div className="auth-brand-row">
-            <div className="auth-brand-mark">
-              S
-            </div>
+        <ThemeToggle className="auth-theme-toggle" />
 
-            <div>
-              <strong>
-                SiteMind
-              </strong>
+        <div className="auth-background-orb auth-orb-one" />
+        <div className="auth-background-orb auth-orb-two" />
+        <div className="auth-background-orb auth-orb-three" />
 
-              <span>
-                SEO AI Platform
-              </span>
-            </div>
+        <div className="auth-card auth-login-card">
+          <LoginBrand />
+
+          <div className="auth-security-pill">
+            <span className="auth-security-dot" />
+            Secure enterprise access
           </div>
 
           <h1>
-            Sign in to SiteMind
+            Welcome to SiteMind
           </h1>
 
-          <p>
-            Access is restricted to approved Dentsu users.
-            Continue with your corporate Okta account.
+          <p className="auth-intro">
+            AI-assisted SEO intelligence for
+            public-web analysis, benchmarking
+            and sitemap discovery.
+          </p>
+
+          <p className="auth-supporting-copy">
+            Sign in using your approved Dentsu
+            corporate Okta account to continue.
           </p>
 
           {error && (
@@ -174,14 +187,39 @@ export default function AuthGate({
             className="auth-login-button"
             onClick={startLogin}
           >
-            Continue with Dentsu Okta
+            <span>
+              Continue with Dentsu Okta
+            </span>
+
+            <span
+              className="auth-login-arrow"
+              aria-hidden="true"
+            >
+              →
+            </span>
           </button>
 
-          <small>
-            SiteMind uses a shared workspace. Projects,
-            runs and analysis outputs are visible to other
-            approved SiteMind users.
-          </small>
+          <div className="auth-trust-row">
+            <span>
+              Approved users only
+            </span>
+
+            <i />
+
+            <span>
+              Shared workspace
+            </span>
+
+            <i />
+
+            <span>
+              Audited actions
+            </span>
+          </div>
+        </div>
+
+        <div className="auth-footer">
+          SiteMind · SEO AI Platform
         </div>
       </div>
     )
