@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=75", "wheel"]
+requires = ["setuptools>=84.1.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -34,7 +34,7 @@ dependencies = [
   "tenacity>=9.1,<10",
   "openpyxl>=3.1.5,<4",
   "curl-cffi>=0.16.3,<1",
-
+  "filelock>=4.2.1,<5",
   "google-auth>=2.40,<3",
   "psycopg[binary]>=3.2,<4",
   "python-multipart>=0.0.20,<1",
@@ -44,7 +44,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-  "pytest>=8.4,<9",
+  "pytest>=9.0.3,<10",
   "pytest-asyncio>=1.1,<2",
   "ruff>=0.12,<1"
 ]
