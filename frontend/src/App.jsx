@@ -8,6 +8,13 @@ import {
   getPublicDataConsent,
 } from './compliance.js'
 
+import {
+  DentsuTopBrand,
+  SidebarBrand,
+} from './Branding.jsx'
+
+import ThemeToggle from './ThemeToggle.jsx'
+
 const TABS = [
   'Overview',
   'Comparison Matrix',
@@ -450,7 +457,22 @@ export default function App() {
 
   return <div className="app-shell">
     <aside className="sidebar">
-      <div className="brand"><div className="brand-mark">SEO</div><div><strong>Analysis Platform</strong><small>Deterministic + AI model</small></div></div>
+      <SidebarBrand />
+      <div className="sidebar-project-context">
+        <span>
+          Current workspace
+        </span>
+
+        <strong>
+          {project?.name || 'No project selected'}
+        </strong>
+
+        <small>
+          {project
+            ? (project.client_name || 'Shared SiteMind workspace')
+            : 'Create or select a project to begin.'}
+        </small>
+      </div>
 
       <label>Project</label>
       <select value={selectedProject} onChange={e => switchProject(e.target.value)}>
@@ -493,31 +515,37 @@ export default function App() {
 
     <main>
       <header className="topbar">
-        <div>
-          <h1>{project?.name || 'SEO AI Platform'}</h1>
-          <p>{project?.client_name || 'Create or select a project to begin.'}</p>
-        </div>
+        <DentsuTopBrand />
 
-        {project && analysisMode === 'page' && (
-          <div className="topbar-actions">
-            <button className="danger-outline" disabled={busy} onClick={resetPageAnalysis}>
-              Reset inputs
-            </button>
-            <button
-              className="primary"
-              disabled={
-                busy
-                || !publicDataConfirmed
-                || LIVE_RUN.has(activeRun?.status)
-                || !project.targets.length
-                || !project.keywords.length
-              }
-              onClick={startRun}
-            >
-              {busy ? 'Working…' : 'Start analysis'}
-            </button>
-          </div>
-        )}
+        <div className="topbar-right">
+          <ThemeToggle />
+
+          {project && analysisMode === 'page' && (
+            <div className="topbar-actions">
+              <button
+                className="danger-outline"
+                disabled={busy}
+                onClick={resetPageAnalysis}
+              >
+                Reset inputs
+              </button>
+
+              <button
+                className="primary"
+                disabled={
+                  busy
+                  || !publicDataConfirmed
+                  || LIVE_RUN.has(activeRun?.status)
+                  || !project.targets.length
+                  || !project.keywords.length
+                }
+                onClick={startRun}
+              >
+                {busy ? 'Working…' : 'Start analysis'}
+              </button>
+            </div>
+          )}
+        </div>
       </header>
 
       {message && <div className="alert" onClick={() => setMessage('')}>{message}</div>}
